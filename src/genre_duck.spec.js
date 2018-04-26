@@ -1,4 +1,10 @@
-import { genreActions, genreReducer, genreEntityReducer, defaultState, defaultEntityState } from "./genre_duck";
+import {
+  genreActions,
+  genreReducer,
+  genreEntityReducer,
+  defaultState,
+  defaultEntityState
+} from "./genre_duck";
 
 describe("Genre actions", () => {
   it("should return loading status on init", () => {
@@ -13,13 +19,13 @@ describe("Genre actions", () => {
   it("should return data with success status on done", () => {
     const genres = [
       {
-          "id": 28,
-          "name": "Action"
+        id: 28,
+        name: "Action"
       },
       {
-          "id": 12,
-          "name": "Adventure"
-      },
+        id: 12,
+        name: "Adventure"
+      }
     ];
 
     expect(genreActions.genre.get.done(genres)).toEqual({
@@ -42,61 +48,73 @@ describe("Genre actions", () => {
   });
 });
 
-describe('Genre reducer', () => {
-  it('should return the initial state', () => {
+describe("Genre reducer", () => {
+  it("should return the initial state", () => {
     expect(genreReducer(undefined, {})).toEqual(defaultState);
   });
 
-  it('should handle GENRE/GET/INIT', () => {
+  it("should handle GENRE/GET/INIT", () => {
     expect(genreReducer(defaultState, genreActions.genre.get.init())).toEqual({
       status: "loading",
       data: [],
       message: ""
-    })
+    });
   });
 
-  it('should handle GENRE/GET/DONE', () => {
-    expect(genreReducer(defaultState, genreActions.genre.get.done([{ id: 1 }, { id: 2 }, { id: 3 }]))).toEqual({
+  it("should handle GENRE/GET/DONE", () => {
+    expect(
+      genreReducer(
+        defaultState,
+        genreActions.genre.get.done([{ id: 1 }, { id: 2 }, { id: 3 }])
+      )
+    ).toEqual({
       status: "success",
       data: [1, 2, 3],
       message: ""
-    })
+    });
   });
 
-  it('should handle GENRE/GET/FAIL', () => {
-    expect(genreReducer(defaultState, genreActions.genre.get.fail("it didn't work"))).toEqual({
+  it("should handle GENRE/GET/FAIL", () => {
+    expect(
+      genreReducer(defaultState, genreActions.genre.get.fail("it didn't work"))
+    ).toEqual({
       status: "failiur",
       data: [],
       message: "it didn't work"
-    })
+    });
   });
 });
 
-describe('Genre enitiy reducer', () => {
-  it('should return the initial state', () => {
+describe("Genre enitiy reducer", () => {
+  it("should return the initial state", () => {
     expect(genreEntityReducer(undefined, {})).toEqual(defaultEntityState);
   });
 
-  it('should handle GENRE/GET/DONE', () => {
+  it("should handle GENRE/GET/DONE", () => {
     const genres = [
       {
-          "id": 28,
-          "name": "Action"
+        id: 28,
+        name: "Action"
       },
       {
-          "id": 12,
-          "name": "Adventure"
-      },
+        id: 12,
+        name: "Adventure"
+      }
     ];
 
-    expect(genreEntityReducer(defaultEntityState, genreActions.genre.get.done(genres))).toEqual({
+    expect(
+      genreEntityReducer(
+        defaultEntityState,
+        genreActions.genre.get.done(genres)
+      )
+    ).toEqual({
       28: {
-          "id": 28,
-          "name": "Action"
+        id: 28,
+        name: "Action"
       },
       12: {
-          "id": 12,
-          "name": "Adventure"
+        id: 12,
+        name: "Adventure"
       }
     });
   });

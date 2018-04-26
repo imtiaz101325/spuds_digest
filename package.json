@@ -4,10 +4,7 @@
   "private": true,
   "devDependencies": {
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "husky": "^0.14.3",
-    "lint-staged": "^7.0.5",
-    "prettier": "^1.12.1"
+    "enzyme-adapter-react-16": "^1.1.1"
   },
   "dependencies": {
     "lodash": "^4.17.10",
@@ -21,17 +18,11 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "precommit": "lint-staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom",
-    "eject": "react-scripts eject"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
+    "eject": "react-scripts eject",
+    "pretty": "prettier --write 'src/**/*.{js,jsx,json,css}'"
   }
 }
