@@ -1,5 +1,13 @@
 import React from 'react';
 
-const App = () => <div>Spud's Digest</div>
+import { Provider } from "react-redux";
+
+import store from "./store";
+ 
+const App = () => (
+  <Provider store={store} >
+    <div>Spud's Digest</div>
+  </Provider>
+);
 
 export default App;
