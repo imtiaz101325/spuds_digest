@@ -8,7 +8,7 @@ import Home from "./HomePage";
 
 const App = () => (
   <Provider store={store}>
-    <BrowserRouter >
+    <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Home} />
       </Switch>

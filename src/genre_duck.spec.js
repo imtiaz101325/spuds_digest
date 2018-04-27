@@ -1,9 +1,13 @@
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
+
 import {
   genreActions,
   genreReducer,
   genreEntityReducer,
   defaultState,
-  defaultEntityState
+  defaultEntityState,
+  getAllGenre
 } from "./genre_duck";
 
 describe("Genre actions", () => {
@@ -110,12 +114,80 @@ describe("Genre enitiy reducer", () => {
     ).toEqual({
       28: {
         id: 28,
-        name: "Action"
+        name: "Action",
+        movies: {
+          status: "initial",
+          data: [],
+          message: ""
+        }
       },
       12: {
         id: 12,
-        name: "Adventure"
+        name: "Adventure",
+        movies: {
+          status: "initial",
+          data: [],
+          message: ""
+        }
       }
+    });
+  });
+});
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
+describe("Genre thunks", () => {
+  describe("Get all genre thunk", () => {
+    it("fetches a list of all genres", () => {
+      fetch.mockResponse(
+        JSON.stringify({
+          genres: [
+            {
+              id: 28,
+              name: "Action"
+            }
+          ]
+        })
+      );
+
+      const expectedActions = [
+        genreActions.genre.get.init(),
+        genreActions.genre.get.done([
+          {
+            id: 28,
+            name: "Action"
+          }
+        ])
+      ];
+
+      const store = mockStore({});
+
+      return store.dispatch(getAllGenre()).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    });
+  });
+
+  it("fails to fetche a list of all genres", () => {
+    fetch.mockReject(
+      JSON.stringify({
+        status_message: "The resource you requested could not be found.",
+        status_code: 34
+      })
+    );
+
+    const expectedActions = [
+      genreActions.genre.get.init(),
+      genreActions.genre.get.fail(
+        "The resource you requested could not be found."
+      )
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(getAllGenre()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });
