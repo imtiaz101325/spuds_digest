@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -8,12 +7,8 @@ import { getAllGenre } from "./genre_duck";
 import { isLoading, isInitial } from "./utils/api_utils";
 
 import GenreRow from "./GenreRow";
-import Title from "./shared/Title";
-
-const Content = styled.section`
-  width: 90%;
-  margin: 0 auto;
-`;
+import Title from "./shared/Text";
+import { Content } from "./shared/PageContainer";
 
 class GenreList extends Component {
   componentDidMount() {

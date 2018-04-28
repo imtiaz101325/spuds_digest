@@ -6,6 +6,7 @@ import store from "./store";
 
 import Home from "./HomePage";
 import Genre from "./GenrePage";
+import Movie from "./MoviePage";
 
 const App = () => (
   <Provider store={store}>
@@ -14,6 +15,7 @@ const App = () => (
         <Route exact path="/" render={() => <Redirect to="/movies" />} />
         <Route exact path="/movies" component={Home} />
         <Route exact path="/movies/:genreID" component={Genre} />
+        <Route exact path="/movies/:genreID/:movieID" component={Movie} />
       </Switch>
     </BrowserRouter>
   </Provider>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import { isLoading } from "./utils/api_utils";
 import { getMoviesByGenre } from "./genre_duck";
@@ -24,15 +25,16 @@ const GenreLabel = styled.h3`
   text-align: center;
 `;
 const GenreCardContainer = styled.div`
-  height: calc(100vh / 2);
-  width: calc((100vh / 2) * (2 / 3));
+  height: 50vh;
+  width: calc(50vh * (2 / 3));
 `;
-const GenreCard = ({ title, image }) => (
-  <GenreCardContainer>
+
+const GenreCard = withRouter(({ id, title, image, history, genreID }) => (
+  <GenreCardContainer onClick={() => history.push(`/movies/${genreID}/${id}`)}>
     <GenreMedia src={image} />
     <GenreLabel>{title}</GenreLabel>
   </GenreCardContainer>
-);
+));
 
 class GenreRow extends Component {
   componentDidMount() {
@@ -42,14 +44,16 @@ class GenreRow extends Component {
   }
 
   render() {
-    const { loading, movies } = this.props;
+    const { loading, movies, id: genreID } = this.props;
 
     return (
       <GenreBlock>
         {loading
           ? "Loading..."
-          : movies.map(({ title, poster_path }) => (
+          : movies.map(({ title, poster_path, id }) => (
               <GenreCard
+                id={id}
+                genreID={genreID}
                 title={title}
                 image={`https://image.tmdb.org/t/p/original${poster_path}`}
               />

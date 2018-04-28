@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -7,14 +6,10 @@ import { getAllGenre } from "./genre_duck";
 
 import { isLoading, isInitial } from "./utils/api_utils";
 
+import Navigation from "./Navigation";
 import GenreRow from "./GenreRow";
-import Title from "./shared/Title";
-import Container from "./shared/PageContainer";
-
-const Content = styled.section`
-  width: 90%;
-  margin: 0 auto;
-`;
+import Title from "./shared/Text";
+import Container, { Content } from "./shared/PageContainer";
 
 class GenrePage extends Component {
   state = {
@@ -51,6 +46,7 @@ class GenrePage extends Component {
 
     return (
       <Container>
+        <Navigation />
         <Content>
           {loading ? (
             "Loading..."

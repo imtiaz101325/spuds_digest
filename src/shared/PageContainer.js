@@ -7,4 +7,10 @@ const Container = styled.div`
   overflow: auto;
 `;
 
+export const Content = styled.section`
+  width: 90%;
+  margin: 0 auto;
+`;
+
+
 export default Container;
