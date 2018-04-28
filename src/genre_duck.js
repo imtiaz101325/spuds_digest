@@ -98,7 +98,7 @@ export const genreEntityReducer = handleActions(
         movies: {
           ...state[id].movies,
           status,
-          data: movies
+          data: diffDataSequence(state[id].movies.data, movies)
         }
       }
     }),

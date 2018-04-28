@@ -2,13 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import GenreList from "./GenreList";
-
-const Container = styled.div`
-  background-color: #3aafa9;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-`;
+import Container from "./shared/PageContainer";
 
 const Header = styled.nav`
   width: 100%;

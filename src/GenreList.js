@@ -1,29 +1,27 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { getAllGenre } from "./genre_duck";
 
-import { isLoading } from "./utils/api_utils";
+import { isLoading, isInitial } from "./utils/api_utils";
 
 import GenreRow from "./GenreRow";
+import Title from "./shared/Title";
 
 const Content = styled.section`
   width: 90%;
   margin: 0 auto;
 `;
 
-const Title = styled.h2`
-  font-family: "Roboto Slab", serif;
-  font-size: 32px;
-  color: #feffff;
-  margin: 0;
-  padding: 0.5em 0;
-`;
-
 class GenreList extends Component {
   componentDidMount() {
-    this.props.getAllGenre();
+    const { initial, getAllGenre } = this.props;
+
+    if (initial) {
+      getAllGenre();
+    }
   }
 
   render() {
@@ -34,7 +32,9 @@ class GenreList extends Component {
         {loading && "Loading..."}
         {genres.map(({ name, id }) => (
           <div>
-            <Title>{name}</Title>
+            <Link to={`movies/${id}`}>
+              <Title>{name}</Title>
+            </Link>
             <GenreRow id={id} />
           </div>
         ))}
@@ -45,7 +45,8 @@ class GenreList extends Component {
 
 const mapStateToProps = state => ({
   genres: state.genre.data.map(id => state.entities.genre[id]),
-  loading: isLoading(state.genre.status)
+  loading: isLoading(state.genre.status),
+  initial: isInitial(state.genre.status)
 });
 
 const mapDispatchToProps = dispatch => ({

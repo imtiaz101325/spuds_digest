@@ -60,7 +60,9 @@ class GenreRow extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  movies: state.entities.genre[ownProps.id].movies.data.slice(0, 5),
+  movies: state.entities.genre[ownProps.id].movies.data
+    .slice(0, ownProps.count || 5)
+    .map(id => state.entities.movie[id]),
   loading: isLoading(state.entities.genre[ownProps.id].movies.status)
 });
 
