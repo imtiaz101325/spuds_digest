@@ -12,5 +12,4 @@ export const Content = styled.section`
   margin: 0 auto;
 `;
 
-
 export default Container;

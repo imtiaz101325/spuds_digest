@@ -6,15 +6,14 @@ const titleMixin = css`
   color: #feffff;
   margin: 0;
   padding: 0.5em 0;
-`
+`;
 
 const Title = styled.h2`
-  ${titleMixin}
+  ${titleMixin};
 `;
 
 export const SubTitle = styled.h3`
-  ${titleMixin}
-  font-size: 16px;
+  ${titleMixin} font-size: 16px;
 `;
 
 export default Title;

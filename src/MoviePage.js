@@ -21,7 +21,7 @@ const PosterColumn = styled.div`
   justify-content: space-around;
   align-items: center;
   margin-bottom: 2em;
-`
+`;
 const Poster = styled.img`
   height: 80vh;
   width: clac(80vh * (2/3));
@@ -34,7 +34,7 @@ const DetailsColumn = styled.div`
 
 const OverviewRow = styled.p`
   padding-left: 1em;
-`
+`;
 class MoviePage extends Component {
   state = {
     movie: {
@@ -82,24 +82,26 @@ class MoviePage extends Component {
       <Container>
         <Navigation />
         <Content>
-          {
-            loading 
-              ? "Loading..."
-              : <div>
-                  <Title>{movie.title}</Title>
-                  <DetailsContainer>
-                    <PosterColumn>
-                      <Poster src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} />
-                    </PosterColumn>
-                    <DetailsColumn>
-                      <SubTitle>Overview</SubTitle>
-                      <OverviewRow>
-                        {movie.overview}
-                      </OverviewRow>
-                    </DetailsColumn>
-                  </DetailsContainer>
-                </div>
-          }
+          {loading ? (
+            "Loading..."
+          ) : (
+            <div>
+              <Title>{movie.title}</Title>
+              <DetailsContainer>
+                <PosterColumn>
+                  <Poster
+                    src={`https://image.tmdb.org/t/p/original${
+                      movie.poster_path
+                    }`}
+                  />
+                </PosterColumn>
+                <DetailsColumn>
+                  <SubTitle>Overview</SubTitle>
+                  <OverviewRow>{movie.overview}</OverviewRow>
+                </DetailsColumn>
+              </DetailsContainer>
+            </div>
+          )}
         </Content>
       </Container>
     );
