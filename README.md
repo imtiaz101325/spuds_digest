@@ -7,6 +7,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The project development and workflow is being documented using Trello and can be accesed by visiting [here](https://trello.com/invite/b/QqjKqH3J/f03c43e6b2889eafb36b7e6d694c2b13/spuds-digest) or in the Boards tab of this project
 
+## Live version
+
+Master is automatically deployed to heroku and can be seen [here](https://spuds-digest.herokuapp.com)
 
 ## Tests
 
