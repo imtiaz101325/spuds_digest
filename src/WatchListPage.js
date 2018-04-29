@@ -41,10 +41,10 @@ class WatchListPage extends Component {
           <Title>Watch List</Title>
           <MovieBlock>
             {successWithWatchlist
-              ? movies.map(({ title, poster_path, id }) => (
+              ? movies.map(({ title, poster_path, id, genre_ids }) => (
                   <MovieCard
                     id={id}
-                    genreID={"lol"}
+                    genreID={genre_ids[0]}
                     title={title}
                     image={`https://image.tmdb.org/t/p/original${poster_path}`}
                   />

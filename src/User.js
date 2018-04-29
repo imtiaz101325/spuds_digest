@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 import { isLoading, isInitial, isSuccess } from "./utils/api_utils";
 import { getAuthToken, getSessionID } from "./auth_duck";
-import { getAccountDetails } from "./account_duck";
+import { getAccountDetails, accountActions } from "./account_duck";
 
 import { NavLink } from "./shared/Link";
 
@@ -77,7 +77,7 @@ class User extends Component {
   }
 
   render() {
-    const { loading, getToken, success, token } = this.props;
+    const { loading, getToken, success, token, resetAccount } = this.props;
     const { loggedIn } = this.state;
 
     if (success) {
@@ -93,6 +93,7 @@ class User extends Component {
           onClick={() => {
             if (loggedIn) {
               window.localStorage.removeItem("sessionID");
+              resetAccount();
               this.setState({
                 loggedIn: false
               });
@@ -122,7 +123,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getToken: () => dispatch(getAuthToken()),
-  getAccountDetails: () => dispatch(getAccountDetails())
+  getAccountDetails: () => dispatch(getAccountDetails()),
+  resetAccount: () => dispatch(accountActions.account.get.init())
 });
 
 export default compose(

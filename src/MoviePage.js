@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { getMovieById } from "./movie_duck";
 
 import Navigation from "./Navigation";
+import WatchList from "./WatchList";
 import Container, { Content } from "./shared/PageContainer";
 import Title, { SubTitle } from "./shared/Text";
 
@@ -106,11 +107,14 @@ class MoviePage extends Component {
               <Title>{movie.title}</Title>
               <DetailsContainer>
                 <PosterColumn>
-                  <Poster
-                    src={`https://image.tmdb.org/t/p/original${
-                      movie.poster_path
-                    }`}
-                  />
+                  <div>
+                    <Poster
+                      src={`https://image.tmdb.org/t/p/original${
+                        movie.poster_path
+                      }`}
+                    />
+                    <WatchList id={movie.id} />
+                  </div>
                 </PosterColumn>
                 <DetailsColumn>
                   <SubTitle>Overview</SubTitle>
