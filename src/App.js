@@ -7,6 +7,7 @@ import store from "./store";
 import Home from "./HomePage";
 import Genre from "./GenrePage";
 import Movie from "./MoviePage";
+import WatchList from "./WatchListPage";
 
 const App = () => (
   <Provider store={store}>
@@ -16,6 +17,7 @@ const App = () => (
         <Route exact path="/movies" component={Home} />
         <Route exact path="/movies/:genreID" component={Genre} />
         <Route exact path="/movies/:genreID/:movieID" component={Movie} />
+        <Route exact path="/watchlist" component={WatchList} />
       </Switch>
     </BrowserRouter>
   </Provider>

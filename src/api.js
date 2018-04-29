@@ -5,7 +5,7 @@ const API_KEY = "cd890f94a756b1518a2a17617a5b430e";
 
 const baseURL = "https://api.themoviedb.org/3/";
 
-const getURL = (route, query) => {
+export const getURL = (route, query) => {
   if (query) {
     return `${baseURL}${route}?api_key=${API_KEY}&${queryString.stringify(
       query
@@ -15,7 +15,7 @@ const getURL = (route, query) => {
   return `${baseURL}${route}?api_key=${API_KEY}`;
 };
 
-export const buildConfig = (method = "GET", mode = "cors", token) => {
+export const buildConfig = (method = "GET", mode = "cors", body) => {
   const base = {
     headers: new Headers({
       "Content-Type": "application/json;charset=utf-8"
@@ -25,7 +25,8 @@ export const buildConfig = (method = "GET", mode = "cors", token) => {
   return {
     ...base,
     method,
-    mode
+    mode,
+    body
   };
 };
 
@@ -33,7 +34,8 @@ const handleErrors = response => {
   return new Promise((resolve, reject) => {
     const res = response.clone();
 
-    if (!response.ok) {
+    // !response.type === 'opaque' reasoning https://github.com/whatwg/fetch/issues/299
+    if (!response.type === "opaque" && !response.ok) {
       response.text().then(text => {
         reject(text);
       });
@@ -88,6 +90,14 @@ export const request = (route, options, query) => {
           return resolve(response.json);
         }
       })
-      .catch(err => reject(JSON.parse(err)));
+      .catch(err => {
+        if (err) {
+          reject(err);
+        } else {
+          reject({
+            status_message: "unkown cause"
+          });
+        }
+      });
   });
 };

@@ -170,12 +170,10 @@ describe("Genre thunks", () => {
   });
 
   it("fails to fetche a list of all genres", () => {
-    fetch.mockReject(
-      JSON.stringify({
-        status_message: "The resource you requested could not be found.",
-        status_code: 34
-      })
-    );
+    fetch.mockReject({
+      status_message: "The resource you requested could not be found.",
+      status_code: 34
+    });
 
     const expectedActions = [
       genreActions.genre.get.init(),
