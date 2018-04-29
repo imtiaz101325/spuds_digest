@@ -10,8 +10,15 @@ import { isLoading, isInitial, isSuccess } from "./utils/api_utils";
 import { getAuthToken, getSessionID } from "./auth_duck";
 import { getAccountDetails } from "./account_duck";
 
+import { NavLink } from "./shared/Link";
+
 const Container = styled.div`
   padding: 0.5em 1em;
+  width: 13em;
+  display: flex;
+  justify-content: ${({ loggedIn }) =>
+    loggedIn ? "space-between" : "flex-end"};
+  align-items: center;
 `;
 
 const Button = styled.button`
@@ -20,6 +27,7 @@ const Button = styled.button`
   background: #2b7a78;
   padding: 0.5em 1em;
   border: 0;
+  cursor: pointer;
 `;
 
 class User extends Component {
@@ -79,7 +87,8 @@ class User extends Component {
     }
 
     return (
-      <Container>
+      <Container loggedIn={loggedIn}>
+        {loggedIn && <NavLink to="/watchlist">watchlist</NavLink>}
         <Button
           onClick={() => {
             if (loggedIn) {

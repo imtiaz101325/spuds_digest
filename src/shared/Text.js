@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const titleMixin = css`
+export const titleMixin = css`
   font-family: "Roboto Slab", serif;
   font-size: 32px;
   color: #feffff;
@@ -13,7 +13,8 @@ const Title = styled.h2`
 `;
 
 export const SubTitle = styled.h3`
-  ${titleMixin} font-size: 16px;
+  ${titleMixin};
+  font-size: 24px;
 `;
 
 export default Title;

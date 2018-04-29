@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { getAllGenre } from "./genre_duck";
 
 import { isLoading, isInitial } from "./utils/api_utils";
 
 import GenreRow from "./GenreRow";
-import Title from "./shared/Text";
+import { TitleLink } from "./shared/Link";
 import { Content } from "./shared/PageContainer";
 
 class GenreList extends Component {
@@ -27,9 +26,7 @@ class GenreList extends Component {
         {loading && "Loading..."}
         {genres.map(({ name, id }) => (
           <div>
-            <Link to={`movies/${id}`}>
-              <Title>{name}</Title>
-            </Link>
+            <TitleLink to={`movies/${id}`}>{name}</TitleLink>
             <GenreRow id={id} />
           </div>
         ))}

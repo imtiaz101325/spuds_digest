@@ -18,6 +18,8 @@ const MovieMedia = styled.img`
   width: calc(50vh * (2 / 3));
 `;
 const MovieLabel = styled.h3`
+  font-family: "Open Sans", sans-serif;
+  color: #17252a;
   padding: 0 1em;
   margin: 0 auto;
   text-align: center;
@@ -26,12 +28,16 @@ const MovieCardContainer = styled.div`
   width: calc(50vh * (2 / 3));
 `;
 
+const ClickableDiv = styled.div`
+  cursor: pointer;
+`;
+
 const MovieCard = withRouter(({ id, title, image, history, genreID }) => (
   <MovieCardContainer>
-    <div onClick={() => history.push(`/movies/${genreID}/${id}`)}>
+    <ClickableDiv onClick={() => history.push(`/movies/${genreID}/${id}`)}>
       <MovieMedia src={image} />
       <MovieLabel>{title}</MovieLabel>
-    </div>
+    </ClickableDiv>
     <WatchList id={id} />
   </MovieCardContainer>
 ));

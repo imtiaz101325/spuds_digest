@@ -106,6 +106,7 @@ export const getMovieById = id => async dispatch => {
   let response = {};
   try {
     response = await request(`movie/${id}`, buildConfig());
+    response.castCrew = await request(`movie/${id}/credits`, buildConfig());
     if (response.id) {
       dispatch(movieActions.movie.get.done(id, response));
       return response;

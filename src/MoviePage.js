@@ -19,8 +19,8 @@ const PosterColumn = styled.div`
   width: 50%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  margin-bottom: 2em;
+  align-items: flex-start;
+  margin: 2em 0;
 `;
 const Poster = styled.img`
   height: 80vh;
@@ -32,16 +32,33 @@ const DetailsColumn = styled.div`
   padding-left: 2em;
 `;
 
-const OverviewRow = styled.p`
+const DetailsText = styled.p`
+  font-family: "Open Sans", sans-serif;
+  color: #17252a;
   padding-left: 1em;
 `;
+
+const DetailsLabel = styled.label`
+  font-family: "Open Sans", sans-serif;
+  color: #feffff;
+`;
+
+const DetailsLink = styled.p`
+  font-family: "Open Sans", sans-serif;
+  color: #feffff;
+  text-align: center;
+  cursor: pointer;
+`;
+
 class MoviePage extends Component {
   state = {
     movie: {
       meta: {
         status: "initial"
       }
-    }
+    },
+    showAllCast: false,
+    showAllCrew: false
   };
 
   async componentDidMount() {
@@ -72,7 +89,7 @@ class MoviePage extends Component {
   }
 
   render() {
-    const { movie } = this.state;
+    const { movie, showAllCast, showAllCrew } = this.state;
 
     const loading =
       movie.meta &&
@@ -97,7 +114,48 @@ class MoviePage extends Component {
                 </PosterColumn>
                 <DetailsColumn>
                   <SubTitle>Overview</SubTitle>
-                  <OverviewRow>{movie.overview}</OverviewRow>
+                  <DetailsText>{movie.overview}</DetailsText>
+                  <DetailsText>
+                    <DetailsLabel>IMDB Link:</DetailsLabel>{" "}
+                    {`www.imdb.com/title/${movie.imdb_id}`}
+                  </DetailsText>
+                  <DetailsText>
+                    <DetailsLabel>Rating:</DetailsLabel> {movie.vote_average}/10
+                  </DetailsText>
+                  <SubTitle>Cast</SubTitle>
+                  {movie.castCrew.cast
+                    .slice(0, showAllCast ? movie.castCrew.cast.length - 1 : 5)
+                    .map(({ character, name }) => (
+                      <DetailsText>
+                        {character} - {name}
+                      </DetailsText>
+                    ))}
+                  <DetailsLink
+                    onClick={() =>
+                      this.setState({
+                        showAllCast: !showAllCast
+                      })
+                    }
+                  >
+                    {showAllCast ? "Show Less" : "Show More"}
+                  </DetailsLink>
+                  <SubTitle>Crew</SubTitle>
+                  {movie.castCrew.crew
+                    .slice(0, showAllCrew ? movie.castCrew.crew.length - 1 : 5)
+                    .map(({ job, name }) => (
+                      <DetailsText>
+                        {job} - {name}
+                      </DetailsText>
+                    ))}
+                  <DetailsLink
+                    onClick={() =>
+                      this.setState({
+                        showAllCrew: !showAllCrew
+                      })
+                    }
+                  >
+                    {showAllCrew ? "Show Less" : "Show More"}
+                  </DetailsLink>
                 </DetailsColumn>
               </DetailsContainer>
             </div>
