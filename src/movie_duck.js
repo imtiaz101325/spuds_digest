@@ -74,7 +74,7 @@ export const movieEntityReducer = handleActions(
         }
       }
     }),
-    [movieActions.movie.get.done]: (
+    [movieActions.movie.get.fail]: (
       state,
       { payload: { status, id, message } }
     ) => ({

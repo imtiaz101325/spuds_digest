@@ -10,10 +10,15 @@ import WatchList from "./WatchList";
 import Container, { Content } from "./shared/PageContainer";
 import Title, { SubTitle } from "./shared/Text";
 
+import media from "./shared/MediaTemplate";
+
 const DetailsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  ${media.tablet`
+    flex-direction: column;
+  `};
 `;
 
 const PosterColumn = styled.div`
@@ -22,6 +27,10 @@ const PosterColumn = styled.div`
   justify-content: space-around;
   align-items: flex-start;
   margin: 2em 0;
+  ${media.tablet`
+    width: 100%;
+    margin: 0;
+  `};
 `;
 const Poster = styled.img`
   height: 80vh;
@@ -31,6 +40,9 @@ const Poster = styled.img`
 const DetailsColumn = styled.div`
   width: 50%;
   padding-left: 2em;
+  ${media.tablet`
+    width: 100%;
+  `};
 `;
 
 const DetailsText = styled.p`

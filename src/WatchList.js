@@ -2,11 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { compose } from "redux";
-import { withRouter } from "react-router-dom";
 
-import { isSuccess } from "./utils/api_utils";
-import { addToWatchList } from "./account_duck";
+import { accountActions } from "./account_duck";
 
 const Container = styled.div`
   text-align: center;
@@ -15,51 +12,40 @@ const Container = styled.div`
 
 const AddLink = styled.a`
   font-family: "Open Sans", sans-serif;
-  color: #def2f1;
+  color: ${({ remove }) => (remove ? "#ad1010" : "#def2f1")};
   cursor: pointer;
   text-decoration: none;
 `;
 
-const WatchList = ({ id, userID, success, history, location }) => {
-  if (
-    window.localStorage &&
-    !!window.localStorage.getItem("sessionID") &&
-    location.pathname !== "/watchlist"
-  ) {
-    return (
-      <Container>
-        <AddLink
-          onClick={async () => {
-            if (success) {
-              try {
-                const response = await addToWatchList(userID, id);
-                if (response.status_code === 1) {
-                  history.push("/watchlist");
-                }
-              } catch (err) {
-                // todo
-              }
-            }
-          }}
-        >
-          Add to watchlist
-        </AddLink>
-      </Container>
-    );
-  }
-
-  return null;
-};
+const WatchList = ({ id, isPresent, addToWatchList, removeFromWatchList }) => (
+  <Container>
+    <AddLink
+      onClick={() => {
+        if (isPresent) {
+          removeFromWatchList(id);
+        } else {
+          addToWatchList(id);
+        }
+      }}
+      remove={isPresent}
+    >
+      {isPresent ? "Remove from watchlist" : "Add to watchlist"}
+    </AddLink>
+  </Container>
+);
 
 WatchList.propTypes = {
-  id: PropTypes.number.isRequired,
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  id: PropTypes.number.isRequired
 };
 
-const mapStateToProps = state => ({
-  userID: state.user.account.id,
-  success: isSuccess(state.user.account.status)
+const mapStateToProps = (state, { id }) => ({
+  isPresent: state.user.watchlist.indexOf(id) !== -1
 });
 
-export default compose(withRouter, connect(mapStateToProps))(WatchList);
+const mapDispatchToProps = dispatch => ({
+  addToWatchList: id => dispatch(accountActions.account.watchlist.add(id)),
+  removeFromWatchList: id =>
+    dispatch(accountActions.account.watchlist.remove(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WatchList);

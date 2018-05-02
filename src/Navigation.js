@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { BrandLink } from "./shared/Link";
-import User from "./User";
+import { BrandLink, NavLink as RawNavlink } from "./shared/Link";
 
 const Header = styled.nav`
   width: 100%;
@@ -12,10 +11,14 @@ const Header = styled.nav`
   justify-content: space-between;
 `;
 
+const NavLink = RawNavlink.extend`
+  margin-right: 2em;
+`;
+
 const Navigation = () => (
   <Header>
     <BrandLink to="/">Spud's Digest</BrandLink>
-    <User />
+    <NavLink to="/watchlist">watchlist</NavLink>
   </Header>
 );
 

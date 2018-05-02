@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import media from "./MediaTemplate";
+
 const Container = styled.div`
   background-color: #3aafa9;
   width: 100vw;
@@ -10,6 +12,9 @@ const Container = styled.div`
 export const Content = styled.section`
   width: 90%;
   margin: 0 auto;
+  ${media.tablet`
+    width: 95%s;
+  `};
 `;
 
 export default Container;
