@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { getMovieById } from "./movie_duck";
+import { getMovieById, movieActions } from "./movie_duck";
 
 import Navigation from "./Navigation";
 import WatchList from "./WatchList";
@@ -75,7 +75,12 @@ class MoviePage extends Component {
   };
 
   async componentDidMount() {
-    const { match, getMovieFromState, getMovieFromAPI } = this.props;
+    const {
+      match,
+      getMovieFromState,
+      getMovieFromAPI,
+      markAsVisited
+    } = this.props;
 
     const movieID = match.params.movieID;
     const movie = getMovieFromState(movieID);
@@ -99,12 +104,15 @@ class MoviePage extends Component {
         movie: response
       });
     }
+
+    markAsVisited(movieID);
   }
 
   render() {
     const { movie, showAllCast, showAllCrew } = this.state;
 
     const loading =
+      movie &&
       movie.meta &&
       (movie.meta.status === "initial" || movie.meta.status === "loading");
 
@@ -191,7 +199,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getMovieFromAPI: id => dispatch(getMovieById(id))
+  getMovieFromAPI: id => dispatch(getMovieById(id)),
+  markAsVisited: id => dispatch(movieActions.movie.visited(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

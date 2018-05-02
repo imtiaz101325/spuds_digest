@@ -9,7 +9,8 @@ const movieActionMap = {
       INIT: id => ({ status: "loading", id }),
       DONE: (id, movie) => ({ status: "success", id, movie }),
       FAIL: (id, message) => ({ status: "failiur", id, message })
-    }
+    },
+    VISITED: id => ({ id })
   }
 };
 

@@ -8,6 +8,7 @@ import Home from "./HomePage";
 import Genre from "./GenrePage";
 import Movie from "./MoviePage";
 import WatchList from "./WatchListPage";
+import Recent from "./RecentPage";
 
 const App = () => (
   <Provider store={store}>
@@ -18,6 +19,7 @@ const App = () => (
         <Route exact path="/movies/:genreID" component={Genre} />
         <Route exact path="/movies/:genreID/:movieID" component={Movie} />
         <Route exact path="/watchlist" component={WatchList} />
+        <Route exact path="/recent" component={Recent} />
       </Switch>
     </BrowserRouter>
   </Provider>

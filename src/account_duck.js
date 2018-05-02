@@ -1,5 +1,7 @@
 import { handleActions, createActions } from "redux-actions";
 
+import { movieActions } from "./movie_duck";
+
 const accountActionMap = {
   ACCOUNT: {
     WATCHLIST: {
@@ -12,7 +14,8 @@ const accountActionMap = {
 export const accountActions = createActions(accountActionMap);
 
 const defaultAccountState = {
-  watchlist: []
+  watchlist: [],
+  visited: []
 };
 
 export const accountReducer = handleActions(
@@ -33,6 +36,13 @@ export const accountReducer = handleActions(
     ) => ({
       ...state,
       watchlist: state.watchlist.filter(inState => id !== inState)
+    }),
+    [movieActions.movie.visited]: (state, { payload: { id } }) => ({
+      ...state,
+      visited: [id, ...state.visited.filter(inList => id !== inList)].slice(
+        0,
+        10
+      )
     })
   },
   defaultAccountState
