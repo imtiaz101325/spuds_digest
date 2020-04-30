@@ -13,7 +13,7 @@
   "dependencies": {
     "@redux-offline/redux-offline": "^2.3.3",
     "jsonp": "^0.2.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.13",
     "query-string": "5",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
