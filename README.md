@@ -1,6 +1,5 @@
 # Spud's Digest
 
-Web Developer Assignment ||
 A movie catalog website based on the data provided from The Movie Database (TMDb)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
